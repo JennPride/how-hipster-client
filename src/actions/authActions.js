@@ -36,7 +36,7 @@ function checkForTokens(tokens) {
 
 function checkCacheTimestamp() {
     const lastToken = localStorage.getItem('timestamp');
-    return lastToken && moment(lastToken).add(1, 'day') < moment(lastToken);
+    return lastToken && moment(lastToken).add(1, 'hour') < moment(lastToken);
 }
 
 // Appears unused because it is accessed on load
