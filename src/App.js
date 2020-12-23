@@ -5,8 +5,14 @@ import Landing from './components/Landing';
 import Results from './components/Results';
 import {bindActionCreators} from "redux";
 import {login} from "./actions/authActions";
+import { CLIENT_URL } from './constants/site';
 
 class App extends Component {
+
+    componentWillMount() {
+        this.props.login();
+        // this.props.history.push({}, CLIENT_URL);
+    };
 
     render() {
 
