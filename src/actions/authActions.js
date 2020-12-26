@@ -1,10 +1,15 @@
-import axios from 'axios';
-import { get } from 'lodash';
 import moment from 'moment';
 
-
-import {SERVER_URL} from '../constants/site';
 import * as types from '../constants/actions';
+import {getHipsterPercent} from "./hipsterActions";
+import {FETCH_HIPSTER_DATA} from "../constants/actions";
+import axios from "axios";
+import {SERVER_URL} from "../constants/site";
+import {REFRESH_TOKEN} from "../constants/responseMessages";
+import {FETCH_HIPSTER_DATA_FAILURE} from "../constants/actions";
+import {REFRESH_TOKEN_REQUEST} from "../constants/actions";
+import {REFRESH_TOKEN_FAILURE} from "../constants/actions";
+import {REFRESH_TOKEN_SUCCESS} from "../constants/actions";
 
 
 export function setLoggedIn(token, refresh) {
@@ -20,9 +25,7 @@ export function setLogOut() {
 
 function checkForTokens(tokens) {
     let { authToken = null, refreshToken = null } = tokens;
-    if (authToken && refreshToken) {
-        return tokens;
-    } else {
+    if (!authToken || !refreshToken) {
         refreshToken = localStorage.getItem('refreshToken');
         authToken = localStorage.getItem('authToken');
         if (refreshToken && authToken) {
@@ -36,7 +39,7 @@ function checkForTokens(tokens) {
 
 function checkCacheTimestamp() {
     const lastToken = localStorage.getItem('timestamp');
-    return lastToken && moment(lastToken).add(1, 'hour') < moment(lastToken);
+    return lastToken && moment(lastToken).add(1, 'day') < moment();
 }
 
 // Appears unused because it is accessed on load
@@ -63,32 +66,39 @@ function getAndSetTokens(tokens) {
 
     tokens = tokens || getHashParams();
 
-    console.log(tokens);
-
     return (dispatch) => {
         if (!tokens.authToken || !tokens.refreshToken || tokens.error) {
             dispatch(setLogOut());
         } else {
             localStorage.setItem('authToken', tokens.authToken);
             localStorage.setItem('refreshToken', tokens.refreshToken);
-            localStorage.setItem('timestamp', moment().format('X'));
+            localStorage.setItem('timestamp', moment().format());
             dispatch(setLoggedIn(tokens.authToken, tokens.refreshToken));
             dispatch(getHipsterPercent());
         }
     }
 }
 
-function getHipsterPercent() {
-    return async (dispatch, getState) => {
-        const token = getState().user.authToken;
+export function refreshSpotifyToken(refreshToken) {
+    return async(dispatch) => {
         try {
-            const hipsterPercent = await axios.post(`${SERVER_URL}/hipster`, {token});
-            console.log(hipsterPercent);
+            dispatch({type: REFRESH_TOKEN_REQUEST});
+            const response = await axios.post(`${SERVER_URL}/refresh-token`, {refreshToken});
+            const { error, accessToken: authToken} = response.data || {};
+            if (error) {
+                console.log(error);
+                dispatch({type: REFRESH_TOKEN_FAILURE, error})
+            } else {
+                dispatch({type: REFRESH_TOKEN_SUCCESS, authToken});
+                dispatch(getHipsterPercent());
+            }
         } catch (err) {
             console.log(err);
+            dispatch({type: REFRESH_TOKEN_FAILURE, error: err});
         }
     }
 }
+
 
 // getting the parameters sent from oAuth in server
 function getHashParams() {

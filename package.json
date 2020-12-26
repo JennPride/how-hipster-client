@@ -4,9 +4,9 @@
   "description": "Client side of the Hipster Test application",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "repository": {
@@ -19,8 +19,12 @@
     "url": "https://github.com/JennPride/how-hipster-client/issues"
   },
   "dependencies": {
+    "@craco/craco": "^6.0.0",
+    "@tailwindcss/postcss7-compat": "^2.0.2",
+    "autoprefixer": "^9.8.6",
     "axios": "^0.21.1",
     "moment": "^2.29.1",
+    "postcss": "^7.0.35",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -29,7 +33,8 @@
     "react-scripts": "^4.0.1",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2"
   },
   "browserslist": {
     "production": [

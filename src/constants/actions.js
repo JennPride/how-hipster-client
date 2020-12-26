@@ -1,3 +1,14 @@
 // Auth related actions
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const REFRESH_TOKEN_REQUEST = 'REFRESH_TOKEN_REQUEST';
+export const REFRESH_TOKEN_SUCCESS = 'REFRESH_TOKEN_SUCCESS';
+export const REFRESH_TOKEN_FAILURE = 'REFRESH_TOKEN_FAILURE';
+
+// Hipster calculation related
+export const FETCH_HIPSTER_DATA = 'FETCH_HIPSTER_DATA';
+export const FETCH_HIPSTER_DATA_SUCCESS = 'FETCH_HIPSTER_DATA_SUCCESS';
+export const FETCH_HIPSTER_DATA_FAILURE = 'FETCH_HIPSTER_DATA_FAILURE';
+
+// Site related actions
+export const SET_LOADING_MESSAGE = 'SET_LOADING_MESSAGE';

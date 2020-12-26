@@ -15,18 +15,40 @@ class App extends Component {
     };
 
     render() {
-
-        const { loggedIn } = this.props.user;
+        const { user, error, loading, loadingMessage } = this.props;
+        const { loggedIn } = user;
 
         return (
             <div className="App">
                 {
-                    loggedIn ?
-                        <Results />
+                    error ?
+                        this.errorDisplay(error)
                         :
-                        <Landing />
+                        (
+                            loading ?
+                                this.loadingDisplay(loadingMessage)
+                                : (
+                                    loggedIn ?
+                                        <Results />
+                                        :
+                                        <Landing />
+                                )
+                        )
                 }
             </div>
+        );
+    }
+
+    errorDisplay(error) {
+        return (
+            <p>{error}</p>
+        );
+    }
+
+    loadingDisplay(message) {
+        const loadingMessage = `${message || ''}...`;
+        return (
+            <p>{loadingMessage}</p>
         );
     }
 
@@ -36,7 +58,8 @@ function mapStateToProps(state) {
     return {
         user: state.user,
         error: state.site.error,
-        loading: state.site.loading
+        loading: state.site.loading,
+        loadingMessage: state.site.loadingMessage
     };
 }
 

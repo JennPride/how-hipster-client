@@ -2,6 +2,8 @@ import * as types from '../../constants/actions';
 
 const initialState = {
     hipsterPercent: null,
+    mostPopularTrack: null,
+    leastPopularTrack: null,
     name: null,
     loggedIn: false,
     authToken: null,
@@ -16,6 +18,20 @@ export default function(state = initialState, action) {
                 authToken: action.authToken,
                 refreshToken: action.refreshToken
             });
+        case types.LOGOUT:
+            return Object.assign({}, state, initialState);
+        case types.FETCH_HIPSTER_DATA_SUCCESS:
+            return Object.assign({}, state, {
+                hipsterPercent: action.hipsterPercent,
+                mostPopularTrack: action.mostPopularTrack,
+                leastPopularTrack: action.leastPopularTrack,
+            });
+        case types.REFRESH_TOKEN_SUCCESS:
+            return Object.assign({}, state, {
+               authToken: action.authToken
+            });
+        case types.REFRESH_TOKEN_FAILURE:
+            return Object.assign({}, state, initialState);
         default:
             return state;
     }
