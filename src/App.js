@@ -33,21 +33,23 @@ class App extends Component {
                         }
                     </div>
                 </nav>
-                {
-                    error ?
-                        this.errorDisplay(error)
-                        :
-                        (
-                            loading ?
-                                <Loading message={loadingMessage}/>
-                                : (
-                                    loggedIn ?
-                                        <Results />
-                                        :
-                                        <Landing />
-                                )
-                        )
-                }
+                <div className="pr-14 pl-14">
+                    {
+                        error ?
+                            this.errorDisplay(error)
+                            :
+                            (
+                                loading ?
+                                    <Loading message={loadingMessage}/>
+                                    : (
+                                        loggedIn ?
+                                            <Results />
+                                            :
+                                            <Landing />
+                                    )
+                            )
+                    }
+                </div>
             </div>
         );
     }
