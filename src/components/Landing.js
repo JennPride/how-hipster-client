@@ -14,12 +14,14 @@ class Landing extends Component {
 
         return (
             <div className="pt-60">
-                <h1 className="text-white text-4xl text-center p-7"> How Hipster Are You? </h1>
+                <h1 className="text-white text-4xl text-center p-7"> How <span className="glow">Hipster</span> Are You?</h1>
+                <h2 className="text-white text-2xl text-center p-3"> We'll analyze your listening habits to determine just how hipster your taste in music is.</h2>
                 <div className="text-center">
                     <a href={loginUrl}>
                         <button className="text-white text-center text-2xl border-white border-2 rounded-full p-3" > Log In With Spotify </button>
                     </a>
                 </div>
+                <p className="text-white text-lg text-center p-2">What is this?</p>
             </div>
         );
     }

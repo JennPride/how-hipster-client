@@ -37,7 +37,7 @@ export function getHipsterPercent() {
             }
         } catch (err) {
             console.log(err);
-            dispatch({type: FETCH_HIPSTER_DATA_FAILURE, error: err});
+            dispatch({type: FETCH_HIPSTER_DATA_FAILURE, error: err.message});
         }
     }
 }
