@@ -2,24 +2,23 @@ import moment from 'moment';
 
 import * as types from '../constants/actions';
 import {getHipsterPercent} from "./hipsterActions";
-import {FETCH_HIPSTER_DATA} from "../constants/actions";
 import axios from "axios";
 import {SERVER_URL} from "../constants/site";
 import {REFRESH_TOKEN} from "../constants/responseMessages";
-import {FETCH_HIPSTER_DATA_FAILURE} from "../constants/actions";
-import {REFRESH_TOKEN_REQUEST} from "../constants/actions";
-import {REFRESH_TOKEN_FAILURE} from "../constants/actions";
-import {REFRESH_TOKEN_SUCCESS} from "../constants/actions";
 
 
 export function setLoggedIn(token, refresh) {
     return {type: types.LOGIN, authToken: token, refreshToken: refresh};
 }
 
-export function setLogOut() {
+function setLogOut() {
+    return {type: types.LOGOUT};
+}
+
+export function logout() {
     return dispatch => {
         localStorage.clear();
-        dispatch({type: types.LOGOUT});
+        dispatch(setLogOut());
     }
 }
 
@@ -68,7 +67,7 @@ function getAndSetTokens(tokens) {
 
     return (dispatch) => {
         if (!tokens.authToken || !tokens.refreshToken || tokens.error) {
-            dispatch(setLogOut());
+            dispatch(logout());
         } else {
             localStorage.setItem('authToken', tokens.authToken);
             localStorage.setItem('refreshToken', tokens.refreshToken);

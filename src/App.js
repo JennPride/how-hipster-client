@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 
 import Landing from './components/Landing';
+import Loading from './components/Loading';
 import Results from './components/Results';
 import {bindActionCreators} from "redux";
-import {login} from "./actions/authActions";
+import {login, logout} from "./actions/authActions";
 import { CLIENT_URL } from './constants/site';
 
 class App extends Component {
@@ -15,18 +16,30 @@ class App extends Component {
     };
 
     render() {
-        const { user, error, loading, loadingMessage } = this.props;
+        const { user, error, loading, logout } = this.props;
         const { loggedIn } = user;
-
+        let loadingMessage = "Checking out your music taste...";
         return (
-            <div className="App">
+            <div className="App w-full h-full bg-gradient-to-b from-angsty-purple to-angsty-blue" >
+                <nav className="w-full fixed flex-row p-7 text-xl">
+                    <div className="flex justify-end">
+                        <div className="text-white border-white border-2 rounded-full p-3 m-2">
+                            About
+                        </div>
+                        {loggedIn &&
+                            <div className="text-white border-white border-2 rounded-full p-3 m-2" onClick={() => logout()}>
+                                Log Out
+                            </div>
+                        }
+                    </div>
+                </nav>
                 {
                     error ?
                         this.errorDisplay(error)
                         :
                         (
                             loading ?
-                                this.loadingDisplay(loadingMessage)
+                                <Loading message={loadingMessage}/>
                                 : (
                                     loggedIn ?
                                         <Results />
@@ -45,13 +58,6 @@ class App extends Component {
         );
     }
 
-    loadingDisplay(message) {
-        const loadingMessage = `${message || ''}...`;
-        return (
-            <p>{loadingMessage}</p>
-        );
-    }
-
 }
 
 function mapStateToProps(state) {
@@ -59,13 +65,13 @@ function mapStateToProps(state) {
         user: state.user,
         error: state.site.error,
         loading: state.site.loading,
-        loadingMessage: state.site.loadingMessage
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         login: bindActionCreators(login, dispatch),
+        logout: bindActionCreators(logout, dispatch)
     };
 }
 

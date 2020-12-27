@@ -4,6 +4,8 @@ import {SERVER_URL} from "../constants/site";
 import {REFRESH_TOKEN} from "../constants/responseMessages";
 import {refreshSpotifyToken} from "./authActions";
 import {
+    FETCH_ARTISTS_FAILURE,
+    FETCH_ARTISTS_SUCCESS,
     FETCH_HIPSTER_DATA,
     FETCH_HIPSTER_DATA_FAILURE,
     FETCH_HIPSTER_DATA_SUCCESS,
@@ -18,10 +20,10 @@ export function getHipsterPercent() {
             dispatch({type: FETCH_HIPSTER_DATA});
             const artistResponse = await axios.post(`${SERVER_URL}/artists`, {token: authToken});
             const {artists = []} = artistResponse.data || {};
-            const [response, artistLoader] = await Promise.all([
-                axios.post(`${SERVER_URL}/hipster`, {token: authToken}),
-                iterateLoadingMessages(artists)
-            ]);
+            if (artists.length) {
+                dispatch({type: FETCH_ARTISTS_SUCCESS, topArtists: artists});
+            }
+            const response = await axios.post(`${SERVER_URL}/hipster`, {token: authToken});
             const { error, hipsterPercent, mostPopular, leastPopular} = response.data || {};
             if (error) {
                 if (error === REFRESH_TOKEN) {
@@ -36,19 +38,6 @@ export function getHipsterPercent() {
         } catch (err) {
             console.log(err);
             dispatch({type: FETCH_HIPSTER_DATA_FAILURE, error: err});
-        }
-    }
-}
-
-function iterateLoadingMessages(messages = []) {
-    return dispatch => {
-        console.log('WBOEUQBWO')
-        if (messages.length) {
-            for (const message in messages) {
-                setTimeout(() => {
-                    dispatch({type: SET_LOADING_MESSAGE, message});
-                }, 500);
-            }
         }
     }
 }

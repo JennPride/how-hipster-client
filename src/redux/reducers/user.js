@@ -4,6 +4,7 @@ const initialState = {
     hipsterPercent: null,
     mostPopularTrack: null,
     leastPopularTrack: null,
+    topArtists: null,
     name: null,
     loggedIn: false,
     authToken: null,
@@ -32,6 +33,10 @@ export default function(state = initialState, action) {
             });
         case types.REFRESH_TOKEN_FAILURE:
             return Object.assign({}, state, initialState);
+        case types.FETCH_ARTISTS_SUCCESS:
+            return Object.assign({}, state, {
+               topArtists: action.topArtists
+            });
         default:
             return state;
     }

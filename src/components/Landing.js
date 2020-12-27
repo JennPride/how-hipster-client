@@ -13,12 +13,11 @@ class Landing extends Component {
         const loginUrl = SERVER_URL + '/login';
 
         return (
-            <div className="Landing">
-                <h1> How Hipster Are You? </h1>
-                <h3> Blah </h3>
-                <div className="app-buttonContainer">
+            <div className="pt-60">
+                <h1 className="text-white text-4xl text-center p-7"> How Hipster Are You? </h1>
+                <div className="text-center">
                     <a href={loginUrl}>
-                        <button className="largeButton" > Log In With Spotify </button>
+                        <button className="text-white text-center text-2xl border-white border-2 rounded-full p-3" > Log In With Spotify </button>
                     </a>
                 </div>
             </div>
