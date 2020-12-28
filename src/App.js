@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 import Landing from './components/Landing';
 import Loading from './components/Loading';
@@ -13,7 +19,7 @@ class App extends Component {
 
     componentWillMount() {
         this.props.login();
-        // this.props.history.push({}, CLIENT_URL);
+        this.props.history.push({}, CLIENT_URL);
     };
 
     render() {
@@ -21,37 +27,44 @@ class App extends Component {
         const { loggedIn } = user;
         let loadingMessage = "Checking out your music taste...";
         return (
-            <div className="App w-full h-full bg-gradient-to-b from-angsty-purple to-angsty-blue" >
-                <nav className="w-full fixed flex-row p-7 text-xl">
-                    <div className="flex justify-end">
-                        <div className="text-white border-white border-2 rounded-full p-3 m-2">
-                            About
-                        </div>
-                        {loggedIn &&
-                            <div className="text-white border-white border-2 rounded-full p-3 m-2" onClick={() => logout()}>
-                                Log Out
-                            </div>
-                        }
-                    </div>
-                </nav>
-                <div className="pr-14 pl-14">
-                    {
-                        error ?
-                            <Error message={error} />
-                            :
-                            (
-                                loading ?
-                                    <Loading message={loadingMessage}/>
-                                    : (
-                                        loggedIn ?
-                                            <Results />
-                                            :
-                                            <Landing />
+            <Router>
+                <div className="App w-full h-full bg-gradient-to-b from-angsty-purple to-angsty-blue" >
+                    <nav className="w-full fixed flex-row p-7 text-xl">
+                        <ul className="flex justify-end">
+                            <li className="text-white border-white border-2 rounded-full p-3 m-2">
+                                <Link to="/about">About</Link>
+                            </li>
+                            {loggedIn &&
+                                <li className="text-white border-white border-2 rounded-full p-3 m-2" onClick={() => logout()}>
+                                    <Link to="/">Log Out</Link>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                    <Switch>
+                        <Route path="/about">
+                        </Route>
+                        <Route path="/">
+                            <Landing />
+                        </Route>
+                        <Route path="/results">
+                            {
+                                error ?
+                                    <Error message={error} />
+                                    :
+                                    (
+                                        loading ?
+                                            <Loading message={loadingMessage}/>
+                                            : <Results />
                                     )
-                            )
-                    }
+                            }
+                        </Route>
+                    </Switch>
+                    <div className="pr-14 pl-14">
+
+                    </div>
                 </div>
-            </div>
+            </Router>
         );
     }
 
