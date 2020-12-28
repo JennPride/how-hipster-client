@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Landing from './components/Landing';
 import Loading from './components/Loading';
 import Results from './components/Results';
+import Error from './components/Error';
 import {bindActionCreators} from "redux";
 import {login, logout} from "./actions/authActions";
 import { CLIENT_URL } from './constants/site';
@@ -36,7 +37,7 @@ class App extends Component {
                 <div className="pr-14 pl-14">
                     {
                         error ?
-                            this.errorDisplay(error)
+                            <Error message={error} />
                             :
                             (
                                 loading ?
@@ -51,12 +52,6 @@ class App extends Component {
                     }
                 </div>
             </div>
-        );
-    }
-
-    errorDisplay(error) {
-        return (
-            <p>{error}</p>
         );
     }
 

@@ -11,8 +11,10 @@ class Results extends Component {
 
         if (hipsterPercent && leastPopularTrack && mostPopularTrack) {
             return (
-                <div className="Results">
-                    <h1>{hipsterPercent.toString()}</h1>
+                <div className="flex h-screen">
+                    <div className="m-auto">
+                        <h1 className="text-white text-6xl text-center pb-40">{hipsterPercent.toString()}</h1>
+                    </div>
                 </div>
             );
         } else {
