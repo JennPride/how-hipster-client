@@ -21,7 +21,8 @@ class Landing extends Component {
         const { showWhatIsThisBlurb } = this.state;
 
         return (
-            <div className="pt-60">
+            <div className="flex h-screen">
+            <div className="m-auto">
                 <h1 className="text-white text-6xl text-center p-7"> How <span className="glow">Hipster</span> Are You?</h1>
                 <h2 className="text-white text-2xl text-center px-4 max-w-4xl mx-auto my-0"> We'll analyze your listening habits to determine just how hipster - or mainstream - your taste in music is.</h2>
                 <div className="text-center pt-6 pb-3">
@@ -32,14 +33,13 @@ class Landing extends Component {
                 <p className="text-white text-lg text-center p-2 cursor-pointer" onClick={() => this.toggleWhatIsThis(!showWhatIsThisBlurb)}>What is this?</p>
                 {
                     showWhatIsThisBlurb &&
-                        <p className="text-white text-md text-center"> We use <a href="https://developer.spotify.com/" target="_blank"> Spotify's API </a>
+                        <p className="text-white text-md text-center px-12 pb-20"> We use <a href="https://developer.spotify.com/" target="_blank" className="underline"> Spotify's API </a>
                             to read and analyze your listening habits. Per Spotify's terms of use, we don't save any personal data
-                            that we pull from the API. The first time you log in you'll see a range of "scope" values that we request access to -
-                            which include your name (for the personalized message), and your listening habits (to determine your hipster percent), neither
-                            of which are saved or used outside of this application. Unfortunately, we can't currently offer this test for the more hipster
-                            music streaming services - consider yourselves too hipster to test.
+                            that we pull from the API. Unfortunately, we can't currently offer this test for the more hipster
+                            music streaming services - consider yourselves too hipster to test. <a href="/about" className="underline"> Read more about the API and our usage here. </a>
                         </p>
                 }
+            </div>
             </div>
         );
     }

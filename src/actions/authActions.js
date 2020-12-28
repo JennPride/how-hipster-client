@@ -5,6 +5,7 @@ import {getHipsterPercent} from "./hipsterActions";
 import axios from "axios";
 import {SERVER_URL} from "../constants/site";
 import {REFRESH_TOKEN} from "../constants/responseMessages";
+import history from '../history';
 
 
 export function setLoggedIn(token, refresh) {
@@ -66,6 +67,12 @@ function getAndSetTokens(tokens) {
     tokens = tokens || getHashParams();
 
     return (dispatch) => {
+        const location = {
+            pathname: "/",
+            hash: "",
+            key: ""
+        };
+        history.replace(location);
         if (!tokens.authToken || !tokens.refreshToken || tokens.error) {
             dispatch(logout());
         } else {

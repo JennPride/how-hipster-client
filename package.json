@@ -23,6 +23,7 @@
     "@tailwindcss/postcss7-compat": "^2.0.2",
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.1",
+    "history": "^5.0.0",
     "moment": "^2.29.1",
     "postcss": "^7.0.35",
     "prop-types": "^15.7.2",

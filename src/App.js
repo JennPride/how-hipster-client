@@ -4,8 +4,9 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
 } from "react-router-dom";
+import history from 'history/browser';
 
 import Landing from './components/Landing';
 import Loading from './components/Loading';
@@ -19,7 +20,6 @@ class App extends Component {
 
     componentWillMount() {
         this.props.login();
-        this.props.history.push({}, CLIENT_URL);
     };
 
     render() {
@@ -28,7 +28,7 @@ class App extends Component {
         let loadingMessage = "Checking out your music taste...";
         return (
             <Router>
-                <div className="App w-full h-full bg-gradient-to-b from-angsty-purple to-angsty-blue" >
+                <div className="App w-full h-full bg-gradient-to-b from-angsty-purple to-angsty-blue fixed overflow-scroll" >
                     <nav className="w-full fixed flex-row p-7 text-xl">
                         <ul className="flex justify-end">
                             <li className="text-white border-white border-2 rounded-full p-3 m-2">
@@ -45,9 +45,6 @@ class App extends Component {
                         <Route path="/about">
                         </Route>
                         <Route path="/">
-                            <Landing />
-                        </Route>
-                        <Route path="/results">
                             {
                                 error ?
                                     <Error message={error} />
@@ -55,13 +52,20 @@ class App extends Component {
                                     (
                                         loading ?
                                             <Loading message={loadingMessage}/>
-                                            : <Results />
+                                            : (
+                                                loggedIn ?
+                                                    <Results />
+                                                    :
+                                                    <Landing />
+                                            )
                                     )
                             }
                         </Route>
                     </Switch>
                     <div className="pr-14 pl-14">
-
+                    </div>
+                    <div className="text-purple-900 bg-white  text-center fixed left-0 bottom-0 w-full">
+                        <p> ⓒ <a href="http://www.jenniferpridemore.com" target="_blank">Jennifer Pridemore 2020</a></p>
                     </div>
                 </div>
             </Router>
