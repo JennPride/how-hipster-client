@@ -28,10 +28,6 @@ body {
 
 .App {
     font-family: 'Montserrat', sans-serif;
-    --color-text: #86eae7;
-    --color-link: #fff;
-    --color-link-hover: #86eae7;
-    --color-title: #fff;
 }
 
 .App h1 {
@@ -44,6 +40,11 @@ body {
 
 button:hover {
     text-shadow: 0 0 10px #ffffff;
+}
+
+#tsparticles {
+    height: 100%;
+    width: 100%;
 }
 
 

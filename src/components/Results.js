@@ -3,7 +3,17 @@ import React, { Component } from 'react';
 import {
     withRouter,
 } from "react-router-dom";
+import {
+    EmailShareButton,
+    FacebookShareButton,
+    FacebookIcon,
+    InstapaperShareButton,
+    RedditShareButton,
+    TwitterShareButton,
+} from "react-share";
 import { get } from 'lodash';
+
+import { CLIENT_URL } from "../constants/site";
 
 class Results extends Component {
 
@@ -80,6 +90,8 @@ class Results extends Component {
             topTrack
         } = this.props.user || {};
 
+        const quote = `I got ${hipsterPercent.toString}% hipster! Check out your hipster percent.`;
+
         return (
             <div className="flex h-screen mt-20">
                 <div className="m-auto pt-32">
@@ -101,6 +113,29 @@ class Results extends Component {
                         leastPopularTrack &&
                         this.getTrackDetails(leastPopularTrack, true)
                     }
+                    </div>
+                    <div>
+                        <h1 className="text-center text-2xl">Share how hipster you are with friends!</h1>
+                        <div className="flex text-center">
+                            <FacebookShareButton
+                                url={CLIENT_URL}
+                                quote={quote}
+                                hashtag="#thehipstertest">
+                                <FacebookIcon size={36} />
+                            </FacebookShareButton>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Want to improve your hipster percent?</p>
+                        <p>I'm currently building an app to promote lesser known artists' live shows - and it will be ready to go when it's safe
+                        for us all to sing, dance, perform, head-bang, crowd surf, and mosh together. If you're interested in staying in the loop (and joining the beta)
+                        sign up to join my mailing list! Spam free guaranteed. </p>
+                    </div>
+                    <div>
+                        <p>Miss live shows?</p>
+                        <p>Consider giving to the <span className="glow">Save Our Stages</span> fund.
+                            Donations go to help independent venues stay afloat in this distressing time. Check it out <a href="https://www.saveourstages.com/" target="_blank" className="underline glow cursor"> here </a> or visit
+                            https://www.saveourstages.com/.</p>
                     </div>
                 </div>
             </div>
