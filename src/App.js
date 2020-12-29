@@ -8,6 +8,7 @@ import {
     withRouter,
     BrowserRouter
 } from "react-router-dom";
+import Particles from 'react-particles-js';
 
 import About from './components/About';
 import Landing from './components/Landing';
@@ -27,10 +28,49 @@ class App extends Component {
         const { user, error, loading, logout, location} = this.props;
         const { loggedIn, topArtists } = user;
         let loadingMessage = "Checking out your music taste...";
-        console.log(location);
-
         return (
             <BrowserRouter>
+                <Particles
+                    width='100%'
+                    height='100%'
+                    params={{
+                        particles: {
+                            number: {
+                                value: 400,
+                                density: {
+                                    enable: true,
+                                    value_area: 1000
+                                }
+                            },
+                            color: {
+                                value: '#fff'
+                            },
+                            opacity: {
+                                value: 0.3,
+                                anim: {
+                                    enable: true
+                                }
+                            },
+                            size: {
+                                value: 3,
+                                random: true,
+                                anim: {
+                                    enable: true,
+                                    speed: 7
+                                }
+                            },
+                            line_linked: {
+                                enable: false
+                            },
+                            move: {
+                                speed: 1
+                            }
+                        }
+                    }}
+                    style={{
+                        position: 'fixed',
+                        'z-index': '1'
+                    }}/>
                 <div className="App w-full h-full bg-gradient-to-b from-angsty-purple to-angsty-blue fixed overflow-scroll text-white" >
                     <nav className="w-full fixed flex-row p-7 text-xl">
                         <ul className="flex justify-end">

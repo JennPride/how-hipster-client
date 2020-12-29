@@ -25,6 +25,7 @@ body {
     box-sizing: border-box;
 }
 
+
 .App {
     font-family: 'Montserrat', sans-serif;
     --color-text: #86eae7;
@@ -44,3 +45,5 @@ body {
 button:hover {
     text-shadow: 0 0 10px #ffffff;
 }
+
+
