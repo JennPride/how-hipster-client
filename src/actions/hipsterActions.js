@@ -24,7 +24,7 @@ export function getHipsterPercent() {
                 dispatch({type: FETCH_ARTISTS_SUCCESS, topArtists: artists});
             }
             const response = await axios.post(`${SERVER_URL}/hipster`, {token: authToken});
-            const { error, hipsterPercent, mostPopular, leastPopular} = response.data || {};
+            const { error, hipsterPercent, mostPopular, leastPopular, topTrack} = response.data || {};
             if (error) {
                 if (error === REFRESH_TOKEN) {
                     dispatch(refreshSpotifyToken(refreshToken));
@@ -33,7 +33,7 @@ export function getHipsterPercent() {
                     console.log(error);
                 }
             } else {
-                dispatch(setHipsterData(hipsterPercent, mostPopular, leastPopular));
+                dispatch(setHipsterData(hipsterPercent, mostPopular, leastPopular, topTrack));
             }
         } catch (err) {
             console.log(err);
@@ -42,11 +42,12 @@ export function getHipsterPercent() {
     }
 }
 
-function setHipsterData(hipsterPercent, mostPopularTrack, leastPopularTrack) {
+function setHipsterData(hipsterPercent, mostPopularTrack, leastPopularTrack, topTrack) {
     return {
         type: FETCH_HIPSTER_DATA_SUCCESS,
         hipsterPercent,
         mostPopularTrack,
-        leastPopularTrack
+        leastPopularTrack,
+        topTrack
     };
 }

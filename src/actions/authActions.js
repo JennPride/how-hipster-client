@@ -88,19 +88,19 @@ function getAndSetTokens(tokens) {
 export function refreshSpotifyToken(refreshToken) {
     return async(dispatch) => {
         try {
-            dispatch({type: REFRESH_TOKEN_REQUEST});
+            dispatch({type: types.REFRESH_TOKEN_REQUEST});
             const response = await axios.post(`${SERVER_URL}/refresh-token`, {refreshToken});
             const { error, accessToken: authToken} = response.data || {};
             if (error) {
                 console.log(error);
-                dispatch({type: REFRESH_TOKEN_FAILURE, error})
+                dispatch({type: types.REFRESH_TOKEN_FAILURE, error})
             } else {
-                dispatch({type: REFRESH_TOKEN_SUCCESS, authToken});
+                dispatch({type: types.REFRESH_TOKEN_SUCCESS, authToken});
                 dispatch(getHipsterPercent());
             }
         } catch (err) {
             console.log(err);
-            dispatch({type: REFRESH_TOKEN_FAILURE, error: err});
+            dispatch({type: types.REFRESH_TOKEN_FAILURE, error: err});
         }
     }
 }

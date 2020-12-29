@@ -4,7 +4,7 @@ const initialState = {
     hipsterPercent: null,
     mostPopularTrack: null,
     leastPopularTrack: null,
-    topArtists: null,
+    topArtists: [],
     name: null,
     loggedIn: false,
     authToken: null,
@@ -26,6 +26,7 @@ export default function(state = initialState, action) {
                 hipsterPercent: action.hipsterPercent,
                 mostPopularTrack: action.mostPopularTrack,
                 leastPopularTrack: action.leastPopularTrack,
+                topTrack: action.topTrack
             });
         case types.REFRESH_TOKEN_SUCCESS:
             return Object.assign({}, state, {
