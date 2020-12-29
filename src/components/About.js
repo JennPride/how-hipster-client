@@ -8,7 +8,7 @@ class About extends Component {
 
     render() {
         return (
-            <div className="m-auto mt-36 mx-28 h-full">
+            <div className="m-auto mt-36 mx-28 h-full mb-20">
                 <h1 className="text-4xl pb-8">What is this?</h1>
                 <p className="text-xl">The <span className="glow">Hipster Test</span> is a little application I built to experiment with the Spotify API and familiarize
                     myself with some new technologies. All of the data pulled from Spotify is never saved anywhere, and the login
