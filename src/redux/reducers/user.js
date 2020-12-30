@@ -4,6 +4,7 @@ const initialState = {
     hipsterPercent: null,
     mostPopularTrack: null,
     leastPopularTrack: null,
+    emailSubmitSuccess: null,
     topArtists: [],
     name: null,
     loggedIn: false,
@@ -27,6 +28,14 @@ export default function(state = initialState, action) {
                 mostPopularTrack: action.mostPopularTrack,
                 leastPopularTrack: action.leastPopularTrack,
                 topTrack: action.topTrack
+            });
+        case types.SUBMIT_CONTACT_SUCCESS:
+            return Object.assign({}, state, {
+                emailSubmitSuccess: true,
+            });
+        case types.SUBMIT_CONTACT_ERROR:
+            return Object.assign({}, state, {
+                emailSubmitSuccess: false,
             });
         case types.REFRESH_TOKEN_SUCCESS:
             return Object.assign({}, state, {

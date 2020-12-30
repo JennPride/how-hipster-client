@@ -16,6 +16,8 @@ import {
 import { get } from 'lodash';
 
 import { CLIENT_URL } from "../constants/site";
+import {bindActionCreators} from "redux";
+import {addEmailToList} from "../actions/userActions";
 
 class Results extends Component {
 
@@ -193,5 +195,10 @@ function mapStateToProps(state) {
     };
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        addEmailToList: bindActionCreators(addEmailToList, dispatch),
+    };
+}
 
-export default withRouter(connect(mapStateToProps, null)(Results));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Results));
