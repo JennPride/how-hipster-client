@@ -15,7 +15,7 @@ export function getHipsterPercent() {
         const {authToken, refreshToken} = getState().user;
         try {
             dispatch({type: FETCH_HIPSTER_DATA});
-            console.log(process.env);
+            console.log(process.env.REACT_APP_SERVER_URL);
             const artistResponse = await axios.post(`${process.env.REACT_APP_SERVER_URL}/artists`, {token: authToken});
             const {artists = []} = artistResponse.data || {};
             if (artists.length) {
