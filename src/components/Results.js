@@ -15,7 +15,6 @@ import {
 } from "react-share";
 import { get } from 'lodash';
 
-import { CLIENT_URL } from "../constants/site";
 import {bindActionCreators} from "redux";
 import {addEmailToList} from "../actions/userActions";
 
@@ -25,12 +24,13 @@ class Results extends Component {
         super(props);
         this.state = {
             email: '',
+            validEmail: true,
         };
     }
 
     getHipsterBlurb(hipsterPercent) {
         if (hipsterPercent < 20) {
-            return "Do you listen to anything other than Taylor Swift?";
+            return "You really need to take a break from Top 40 radio.";
         } else if (hipsterPercent < 35) {
             return "Eh, you're not totally mainstream.";
         } else if (hipsterPercent < 50) {
@@ -43,6 +43,17 @@ class Results extends Component {
             return "Do people ever know what you're listening to?";
         } else {
             return "Certified hipster";
+        }
+    }
+
+    validateEmail(email, addEmailToList) {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const validEmail = re.test(String(email).toLowerCase());
+        this.setState({
+            validEmail
+        });
+        if (validEmail) {
+            addEmailToList(email);
         }
     }
 
@@ -93,7 +104,6 @@ class Results extends Component {
     }
 
     updateEmail(email) {
-        console.log(email);
         this.setState({
             email
         });
@@ -110,15 +120,16 @@ class Results extends Component {
             hipsterPercent = null,
             leastPopularTrack,
             mostPopularTrack,
-            topTrack
+            topTrack,
+            emailSubmitSuccess
         } = user || {};
 
-        const quote = `I got ${hipsterPercent.toString}% hipster! Check out your hipster percent.`;
-        const { email } = this.state;
+        const quote = `I got ${hipsterPercent}% hipster! Check out your hipster percent.`;
+        const { email, validEmail } = this.state;
 
         return (
             <div className="flex h-screen mt-20">
-                <div className="m-auto pt-32">
+                <div className="m-auto pt-32 w-full">
                     {hipsterPercent &&
                         <div>
                             <h1 className="text-6xl text-center p-6 glow">{`${hipsterPercent.toString()}% Hipster`}</h1>
@@ -144,40 +155,50 @@ class Results extends Component {
                             <p>I'm building an app to promote <span className="glow">lesser known artists' live shows </span> - and it will be ready to go when it's safe
                                 for us all to sing, dance, perform, head-bang, crowd surf, and mosh together. If you're interested in staying in the loop (and joining the beta)
                                 sign up to join my mailing list! Spam free guaranteed. </p>
-                            <input type="email" className="w-80 h-10 text-lg rounded-full bg-transparent border-2 border-white focus:border-blue-100 mt-10 p-2" value={email} placeholder="totalHipster@gmail.com" onChange={(e) => this.updateEmail(e.target.value)}/>
-                            <button className="text-white bg-transparent border-white border-2 rounded-full p-2 m-2 hover:bg-white hover:text-purple-900 transition duration-300 ease-in" onClick={() => addEmailToList(email)}>Submit</button>
+                            <input type="email" className="m-auto sm:w-80 h-10 text-lg rounded-full bg-transparent border-2 border-white focus:border-blue-100 mt-10 p-2" value={email} placeholder="totalHipster@gmail.com" onChange={(e) => this.updateEmail(e.target.value)}/>
+                            <button className="text-white bg-transparent border-white border-2 rounded-full p-2 m-2 hover:bg-white hover:text-purple-900 transition duration-300 ease-in" onClick={() => this.validateEmail(email, addEmailToList)}>Submit</button>
+                            {
+                                validEmail === false &&
+                                    <div>Please enter a valid email.</div>
+                            }
+                            {emailSubmitSuccess === true &&
+                                <div> Successfully added email to mailing list! </div>
+                            }
+                            {emailSubmitSuccess === false &&
+                                <div>Uh oh, we had an issue adding your email to our mailing list.</div>
+                            }
                         </div>
                         <div className="py-4">
                             <h1 className="text-3xl py-4">Miss <span className="glow">live</span> shows?</h1>
                             <p>Consider giving to the <span className="glow">Save Our Stages</span> fund.
                                 Donations go to help independent venues stay afloat in this distressing time. Check it out <a href="https://www.saveourstages.com/" target="_blank" className="underline glow cursor"> here </a> or visit
-                                https://www.saveourstages.com/.</p>
+                                https://www.saveourstages.com.</p>
                         </div>
                         <div>
                             <h1 className="text-2xl py-4">Share how hipster you are with friends!</h1>
                             <div className="flex justify-center align-center space-x-8">
                                 <FacebookShareButton
-                                    url={CLIENT_URL}
+                                    url={process.env.REACT_APP_CLIENT_URL}
                                     quote={quote}
                                     hashtag="#thehipstertest">
-                                    <FacebookIcon size={48} />
+                                    <FacebookIcon size={48} round/>
                                 </FacebookShareButton>
                                 <RedditShareButton
-                                    url={CLIENT_URL}
+                                    url={process.env.REACT_APP_CLIENT_URL}
                                     title={quote}>
-                                    <RedditIcon size={48} />
+                                    <RedditIcon size={48} round />
                                 </RedditShareButton>
                                 <EmailShareButton
                                     subject={'Check out the Hipster Test!'}
                                     body={quote}
-                                    url={CLIENT_URL}>
-                                    <EmailIcon size={48}/>
+                                    url={process.env.REACT_APP_CLIENT_URL}>
+                                    <EmailIcon size={48} round />
                                 </EmailShareButton>
                                 <TwitterShareButton
                                     title={quote}
                                     hashtags={['hipster', 'thehipstertest', 'hipstertest']}
-                                    url={CLIENT_URL}>
-                                    <TwitterIcon size={48}/>
+                                    url={process.env.REACT_APP_CLIENT_URL}>
+                                    <TwitterIcon size={48} round/>
                                 </TwitterShareButton>
                             </div>
                         </div>

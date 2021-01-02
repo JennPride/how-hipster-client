@@ -4,7 +4,6 @@ import {bindActionCreators} from 'redux';
 import React, { Component } from 'react';
 
 import {login} from '../actions/authActions';
-import {SERVER_URL} from "../constants/site";
 
 class Landing extends Component {
 
@@ -17,7 +16,7 @@ class Landing extends Component {
 
     render() {
 
-        const loginUrl = SERVER_URL + '/login';
+        const loginUrl = process.env.REACT_APP_SERVER_URL + '/login';
         const { showWhatIsThisBlurb } = this.state;
 
         return (

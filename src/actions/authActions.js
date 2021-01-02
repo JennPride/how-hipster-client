@@ -3,8 +3,6 @@ import moment from 'moment';
 import * as types from '../constants/actions';
 import {getHipsterPercent} from "./hipsterActions";
 import axios from "axios";
-import {SERVER_URL} from "../constants/site";
-import {REFRESH_TOKEN} from "../constants/responseMessages";
 import history from '../history';
 
 
@@ -89,7 +87,7 @@ export function refreshSpotifyToken(refreshToken) {
     return async(dispatch) => {
         try {
             dispatch({type: types.REFRESH_TOKEN_REQUEST});
-            const response = await axios.post(`${SERVER_URL}/refresh-token`, {refreshToken});
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/refresh-token`, {refreshToken});
             const { error, accessToken: authToken} = response.data || {};
             if (error) {
                 console.log(error);

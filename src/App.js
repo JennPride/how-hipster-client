@@ -34,14 +34,14 @@ class App extends Component {
                     <div className="w-full h-full fixed overflow-scroll">
                         <nav className="w-full fixed flex-row p-7 text-xl">
                             <ul className="flex justify-end">
-                                <li className="bg-angsty-purple text-white border-white border-2 rounded-full p-3 m-2 hover:bg-white hover:text-purple-900 transition duration-300 ease-in">
+                                <li className="bg-angsty-purple text-white border-white border-2 rounded-full p-2 sm:p-3 m-2 hover:bg-white hover:text-purple-900 transition duration-300 ease-in">
                                     <NavLink to="/about">About</NavLink>
                                 </li>
-                                <li className="bg-angsty-purple text-white border-white border-2 rounded-full p-3 m-2 hover:bg-white hover:text-purple-900 transition duration-300 ease-in">
+                                <li className="bg-angsty-purple text-white border-white border-2 rounded-full p-2 sm:p-3 m-2 hover:bg-white hover:text-purple-900 transition duration-300 ease-in">
                                     <NavLink to="/">Home</NavLink>
                                 </li>
                                 {loggedIn &&
-                                    <li className="bg-angsty-purple text-white border-white border-2 rounded-full p-3 m-2 hover:bg-white hover:text-purple-900 transition duration-300 ease-in" onClick={() => logout()}>
+                                    <li className="bg-angsty-purple text-white border-white border-2 rounded-full p-2 sm:p-3 m-2 hover:bg-white hover:text-purple-900 transition duration-300 ease-in" onClick={() => logout()}>
                                         <Link to="/">Log Out</Link>
                                     </li>
                                 }

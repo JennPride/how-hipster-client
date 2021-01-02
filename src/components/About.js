@@ -8,7 +8,7 @@ class About extends Component {
 
     render() {
         return (
-            <div className="m-auto mt-36 mx-28 h-full mb-20">
+            <div className="m-auto mt-36 mx-10 sm:mx-28 h-full mb-20">
                 <h1 className="text-4xl pb-8">What is this?</h1>
                 <p className="text-xl">The <span className="glow">Hipster Test</span> is a little application I built to experiment with the Spotify API and familiarize
                     myself with some new technologies. All of the data pulled from Spotify is never saved anywhere, and the login
@@ -24,8 +24,12 @@ class About extends Component {
                 <p className="text-xl">
                     Oh, and if you're extra bummed (like me) about not being able to see <i>any</i> shows this year, consider giving to the <span className="glow">Save Our Stages</span> fund.
                     Donations go to help independent venues stay afloat in this distressing time. Check it out <a href="https://www.saveourstages.com/" target="_blank" className="underline glow cursor"> here </a> or visit
-                    https://www.saveourstages.com/.
+                    https://www.saveourstages.com.
                 </p>
+                <div className="py-10">
+                    <a className="pr-10 text-sm sm:text-lg" href="/documents/PP.pdf" target="_blank">Privacy Policy</a>
+                    <a className="pr-10 text-sm sm:text-lg" href="/documents/EULA.pdf" target="_blank">User Agreement</a>
+                </div>
             </div>
         );
     }

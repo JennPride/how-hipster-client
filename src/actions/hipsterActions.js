@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-import {SERVER_URL} from "../constants/site";
 import {REFRESH_TOKEN} from "../constants/responseMessages";
 import {refreshSpotifyToken} from "./authActions";
 import {
@@ -18,12 +17,12 @@ export function getHipsterPercent() {
         const {authToken, refreshToken} = getState().user;
         try {
             dispatch({type: FETCH_HIPSTER_DATA});
-            const artistResponse = await axios.post(`${SERVER_URL}/artists`, {token: authToken});
+            const artistResponse = await axios.post(`${process.env.REACT_APP_SERVER_URL}/artists`, {token: authToken});
             const {artists = []} = artistResponse.data || {};
             if (artists.length) {
                 dispatch({type: FETCH_ARTISTS_SUCCESS, topArtists: artists});
             }
-            const response = await axios.post(`${SERVER_URL}/hipster`, {token: authToken});
+            const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/hipster`, {token: authToken});
             const { error, hipsterPercent, mostPopular, leastPopular, topTrack} = response.data || {};
             if (error) {
                 if (error === REFRESH_TOKEN) {
