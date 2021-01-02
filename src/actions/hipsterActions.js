@@ -3,12 +3,10 @@ import axios from 'axios';
 import {REFRESH_TOKEN} from "../constants/responseMessages";
 import {refreshSpotifyToken} from "./authActions";
 import {
-    FETCH_ARTISTS_FAILURE,
     FETCH_ARTISTS_SUCCESS,
     FETCH_HIPSTER_DATA,
     FETCH_HIPSTER_DATA_FAILURE,
     FETCH_HIPSTER_DATA_SUCCESS,
-    SET_LOADING_MESSAGE
 } from "../constants/actions";
 
 
@@ -17,6 +15,7 @@ export function getHipsterPercent() {
         const {authToken, refreshToken} = getState().user;
         try {
             dispatch({type: FETCH_HIPSTER_DATA});
+            console.log(process.env);
             const artistResponse = await axios.post(`${process.env.REACT_APP_SERVER_URL}/artists`, {token: authToken});
             const {artists = []} = artistResponse.data || {};
             if (artists.length) {
