@@ -32,7 +32,7 @@ class App extends Component {
             <BrowserRouter>
                 <div className="App w-full h-full fixed overflow-scroll text-white bg-gradient-to-b from-angsty-purple to-angsty-blue" >
                     <div className="w-full h-full fixed overflow-scroll">
-                        <nav className="w-full fixed flex-row p-7 text-xl">
+                        <nav className="w-full fixed flex-row p-5 text-xl">
                             <ul className="flex justify-end">
                                 <li className="bg-angsty-purple text-white border-white border-2 rounded-full p-2 sm:p-3 m-2 hover:bg-white hover:text-purple-900 transition duration-300 ease-in">
                                     <NavLink to="/about">About</NavLink>
